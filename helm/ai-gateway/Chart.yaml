@@ -1,0 +1,4 @@
+apiVersion: v2
+name: langdb-ai-gateway
+description: Helm chart for the langdb.ai-gateway core component
+version: 0.1.0

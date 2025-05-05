@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ai-gateway
+spec:
+  replicas: { { .Values.replicaCount } }
+  selector:
+    matchLabels:
+      app: ai-gateway
+  template:
+    metadata:
+      labels:
+        app: ai-gateway
+    spec:
+      containers:
+        - name: ai-gateway
+          image: { { .Values.image } }
+          env:
+            - name: CLICKHOUSE_HOST
+              value: { { .Values.env.CLICKHOUSE_HOST } }
+            - name: REDIS_HOST
+              value: { { .Values.env.REDIS_HOST } }
+            - name: POSTGRES_HOST
+              value: { { .Values.env.POSTGRES_HOST } }
+            - name: POSTGRES_USER
+              value: { { .Values.env.POSTGRES_USER } }
+            - name: POSTGRES_PASSWORD
+              value: { { .Values.env.POSTGRES_PASSWORD } }
+            - name: POSTGRES_DB
+              value: { { .Values.env.POSTGRES_DB } }
+          ports:
+            - containerPort: 8080
+          command: ["ai-gateway", "serve", "--config", "/app/config.yaml"]
+          volumeMounts:
+            - name: config
+              mountPath: /app/config.yaml
+              subPath: config.yaml
+      volumes:
+        - name: config
+          configMap:
+            name: ai-gateway-config
