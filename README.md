@@ -1,4 +1,4 @@
-# ai-gateway Enterprise Example Stack
+# Helm chart for LangDB Ai Gateway
 
 This guide explains how to set up the **ai-gateway enterprise** service using example stacks. The ai-gateway service provides a scalable, production-ready API gateway for AI and data workloads, supporting integration with Postgres, Redis, and ClickHouse.
 
